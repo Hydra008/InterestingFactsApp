@@ -1,17 +1,22 @@
 package com.codegodfather.interestingfacts;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Random;
 
 public class interstingFacts extends AppCompatActivity {
+    private FactBook factBook = new FactBook();
+    private ColorWheel colorWheel = new ColorWheel();
     // Declaring member variables
     private TextView mFactView;
     private Button mShowFactButton;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +26,19 @@ public class interstingFacts extends AppCompatActivity {
         //Assigning the views from layout file to corresponding variables
         mFactView= (TextView) findViewById(R.id.factTextView);
         mShowFactButton= (Button) findViewById(R.id.showFactButton);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] facts = {"Chuck Berry is Considered as the Father of Rock and Roll",
-                            "Jimi hendrix could play guitar with his tongue",
-                            "Rcok Music has been dominating music industry since last 50 years",
-                            "Led Zepplin,Pink Floyd, Deep Purple, and Black Sabbath were the bands that led foundation for Heavy Metal",
-                            "The Velvet Underground band motivated 40 other bands to be formed in 1970s"};
-                //The button was clicked lets update the fact
-                String fact = "";
-                //Add Randomization to select facts randomly
-                Random randomGenerator = new Random();
-                int randomNumber = randomGenerator.nextInt(facts.length);
-                fact= facts[randomNumber]; //string overpowers the int and hence removes the error
+            String fact = factBook.getFact();
+
 
                 //Updating the screen
                 mFactView.setText(fact);
+                int color = colorWheel.getColor();
+                relativeLayout.setBackgroundColor(color);
+                mShowFactButton.setTextColor(color);
             }
         };
 
